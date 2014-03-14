@@ -3,6 +3,6 @@ ToDoList::Application.routes.draw do
 
   resources :tasks 
 
-  get '/list', to: 'task#list'
-  
+  get '/list', to: 'tasks#list'
+
 end
