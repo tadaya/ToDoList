@@ -8,7 +8,18 @@ class TasksController < ApplicationController
   end
 
   def create
-    task = Task.create(todo: params[:todo])
+    task = Task.create(todo: params[:todo], complete: params[:complete])
     render json: task
+  end
+
+  def update
+    @task = Task.find_by(id: params[:id])
+    @task.update(complete: params[:complete])
+    render json: @task
+  end
+
+  def destroy
+    @task = Task.find_by(id: params[:id])
+    @task.destroy;
   end
 end
