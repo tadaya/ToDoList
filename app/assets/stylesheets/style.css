@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Ribeye+Marrow);
+
 .checked {
   text-decoration: line-through;
 }
@@ -7,8 +9,26 @@ ul {
 }
 
 fieldset {
-  background-color: white ;
-}
-body {
   background-color: beige;
+}
+
+form {
+  text-align: center;
+}
+
+input {
+  width: 50%;
+}
+
+body {
+  background-color: wheat;
+  margin: 0 auto;
+  width: 50%;
+  font-family: sans-serif;
+}
+
+h1 {
+  font-family: Ribeye Marrow;
+  text-align: center;
+  font-size: 400%;
 }
