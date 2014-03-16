@@ -4,23 +4,34 @@ function renderTasks() {
   list = $('<ul>');
   list.appendTo('body');
   $.getJSON('/list', function(response) {
+    response.sort( function(a,b) {
+      return a.id - b.id;
+    });
     $.each(response, function(i, task) {
       var li = $('<li>');
       li.text(task.todo).appendTo(list);
       if(task.complete === true) {
         li.addClass('checked');
       }
-      button = $("<button class='complete'>&#10004</button>");
-      button.appendTo(li);
-      $(button).on('click', function(){
-          $.ajax({
-            url: '/tasks/' + task.id, 
-            type: 'PUT',
-            data: {id: task.id, complete: !task.complete}
-          });
-          li.toggleClass('checked');
+      completeButton(li, task);
+      deleteButton(li, task);    
+    });
+  });
+};
+
+function completeButton(li, task){
+  $("<button class='complete'>&#10004</button>").appendTo(li).on('click', function(){
+    $.ajax({
+        url: '/tasks/' + task.id, 
+        type: 'PUT',
+        data: {id: task.id, complete: !task.complete}
       });
-      $("<button class='delete'>X</button>").appendTo(li).on('click', function(){
+    li.toggleClass('checked');
+  });
+}
+
+function deleteButton(li, task){
+  $("<button class='delete'>X</button>").appendTo(li).on('click', function(){
         $.ajax({
           url: '/tasks/' + task.id,
           type: 'DELETE',
@@ -28,9 +39,7 @@ function renderTasks() {
         });
         li.remove();
       });
-    });
-  });
-};
+}
 
 renderTasks(); 
 
