@@ -8,9 +8,9 @@ function renderTasks() {
       var li = $('<li>');
       li.text(task.todo).appendTo(list);
       if(task.complete === true) {
-        li.css('text-decoration', 'line-through');
+        li.addClass('checked');
       }
-      button = $("<button class='complete'>");
+      button = $("<button class='complete'>&#10004</button>");
       button.appendTo(li);
       $(button).on('click', function(){
           $.ajax({
@@ -18,13 +18,15 @@ function renderTasks() {
             type: 'PUT',
             data: {id: task.id, complete: !task.complete}
           });
+          li.toggleClass('checked');
       });
-      $("<button class='delete'>").appendTo(li).on('click', function(){
+      $("<button class='delete'>X</button>").appendTo(li).on('click', function(){
         $.ajax({
           url: '/tasks/' + task.id,
           type: 'DELETE',
           data: {id: task.id}
         });
+        li.remove();
       });
     });
   });
