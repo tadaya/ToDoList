@@ -27,6 +27,8 @@ function completeButton(li, task){
         data: {id: task.id, complete: !task.complete}
       });
     li.toggleClass('checked');
+    list.remove();
+    renderTasks();
   });
 }
 
@@ -38,7 +40,7 @@ function deleteButton(li, task){
           data: {id: task.id}
         });
         li.remove();
-      });
+      }); 
 }
 
 renderTasks(); 
